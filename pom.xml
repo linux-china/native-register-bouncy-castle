@@ -46,6 +46,12 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.graalvm.sdk</groupId>
+			<artifactId>graal-sdk</artifactId>
+			<version>21.3.13</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -53,6 +59,19 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.graalvm.buildtools</groupId>
+				<artifactId>native-maven-plugin</artifactId>
+				<version>0.9.28</version>
+				<configuration>
+					<buildArgs>
+						<arg>--features=com.security.registerbouncycastle.BouncyCastleFeature</arg>
+						<arg>--initialize-at-build-time=org.bouncycastle</arg>
+						<arg>--initialize-at-run-time=org.bouncycastle.jcajce.provider.drbg.DRBG$Default,org.bouncycastle.jcajce.provider.drbg.DRBG$NonceAndIV</arg>
+						<arg>-H:+AllowDeprecatedBuilderClassesOnImageClasspath</arg>
+					</buildArgs>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
