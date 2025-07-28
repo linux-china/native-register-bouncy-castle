@@ -1,0 +1,2 @@
+### ecrypt message
+GET http://localhost:8080/encrypt?val=HelloWorld
